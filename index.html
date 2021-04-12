@@ -29,14 +29,26 @@
 
         <div class="search-result">
 
-          <div class="container ">
+          <div class="container movies">
             <div v-for="(movie, i) in movies" class="movie-card">
               <h3 class="title">{{movie.title}}</h3>
               <span class="original">{{movie.original_title}}</span>
-              <span class="language">{{movie.original_language}}</span>
+              <img v-if="movie.original_language != 'en'" :src=`https://www.countryflags.io/${movie.original_language}/flat/64.png`>
+              <img v-else src="https://www.countryflags.io/us/flat/64.png">
               <span class="vote">{{movie.vote_average}}</span>
             </div>
           </div>
+
+          <div class="container movies">
+            <div v-for="(movie, i) in movies" class="movie-card">
+              <h3 class="title">{{movie.title}}</h3>
+              <span class="original">{{movie.original_title}}</span>
+              <img v-if="movie.original_language != 'en'" :src=`https://www.countryflags.io/${movie.original_language}/flat/64.png`>
+              <img v-else src="https://www.countryflags.io/us/flat/64.png">
+              <span class="vote">{{movie.vote_average}}</span>
+            </div>
+          </div>
+
         </div>
       </main>
 
