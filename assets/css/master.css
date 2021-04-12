@@ -1,0 +1,44 @@
+body{
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* DEBUG */
+.debug .search-result{
+  background: red;
+}
+
+/* HEADER */
+header{
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* MAIN */
+main .search-result{
+  height: calc(100vh - 61px);
+  overflow-y: auto;
+
+}
+
+main .search-result .container{
+  display: flex;
+  flex-wrap: wrap;
+
+  padding: 50px 0;
+
+}
+
+main .search-result .movie-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: calc(100% / 5 - 20px);
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  height: 250px;
+}

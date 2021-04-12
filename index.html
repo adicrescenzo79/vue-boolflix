@@ -1,15 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="it" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/12bool.css">
     <link rel="stylesheet" href="./assets/css/master.css">
     <title></title>
   </head>
-  <body>
+  <body class="">
     <div id="root">
-      <p>{{message}}</p>
+
+      <header>
+        <div class="container">
+          <!-- INPUT DI RICERCA -->
+          <input
+          @keyup.enter="search()"
+          v-model="searchMovie"
+          placeholder="Cerca su questo sito"
+          type="text">
+
+          <button @click="search()" >VAI</button>
+        </div>
+      </header>
+
+      <main>
+
+        <div class="search-result">
+
+          <div class="container ">
+            <div v-for="(movie, i) in movies" class="movie-card">
+              <h3 class="title">{{movie.title}}</h3>
+              <span class="original">{{movie.original_title}}</span>
+              <span class="language">{{movie.original_language}}</span>
+              <span class="vote">{{movie.vote_average}}</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+
+      </footer>
+
 
 
 
@@ -47,10 +81,6 @@
 
 
     </div>
-    <!-- SCOMMENTARE SE SI USA JQUERY -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script> -->
-
-    <!-- SCOMMENTARE SE SI USA VUE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="./assets/js/main.js" charset="utf-8"></script>
