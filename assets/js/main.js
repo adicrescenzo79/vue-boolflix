@@ -4,6 +4,7 @@ var app = new Vue({
   data: {
     searchMovie: '',
     movies: [],
+    tvShows: [],
   },
   methods: {
     search: function(){
@@ -14,6 +15,14 @@ var app = new Vue({
         this.movies = result;
         console.log(this.movies);
       });
+      axios
+      .get(`https://api.themoviedb.org/3/search/tv?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it&query=${this.searchMovie}`)
+      .then((response) => {
+        const result = response.data.results;
+        this.tvShows = result;
+        console.log(this.tvShows);
+      });
+
     },
   }
 })

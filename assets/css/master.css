@@ -20,7 +20,8 @@ main .search-result{
 
 }
 
-main .search-result .container{
+main .search-result .container .movies,
+main .search-result .container .tv-shows{
   display: flex;
   flex-wrap: wrap;
 
