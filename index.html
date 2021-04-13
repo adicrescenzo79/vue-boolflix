@@ -46,7 +46,7 @@
           <div class="container">
             <h1 v-if="movies.length">FILM e Serie TV trovati</h1>
             <div class="movies">
-              <div  v-for="(movie, i) in movies" class="movie">
+              <div @mouseenter="(movie.title) ? creditsMovie(movie.id) : creditsTv(movie.id)" @mouseleave="actors = []" v-for="(movie, i) in movies" class="movie">
                 <div class="card">
                   <div class="poster" v-if="movie.poster_path != null" :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")`></div>
                   <div class="no-poster" v-else >
@@ -54,8 +54,11 @@
                   </div>
                 </div>
                 <div class="info">
-                  <h3 class="title">{{movie.title || movie.name}}</h3>
+                  <h4 class="title">{{movie.title || movie.name}}</h4>
                   <span v-if="movie.title != movie.original_title || movie.name != movie.original_name" class="original">"{{movie.original_title || movie.original_name}}"</span>
+                  <ul class="cast">
+                    <li v-for="actor in actors" class="actor">{{actor}}</li>
+                  </ul>
                   <p class="overview">{{movie.overview}}</p>
                   <img class="flag" v-if="movie.original_language == 'en'" src="https://www.countryflags.io/us/shiny/64.png">
                   <img class="flag" v-else-if="movie.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/64.png">

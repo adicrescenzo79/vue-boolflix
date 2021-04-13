@@ -73,7 +73,7 @@ main .search-result .container .movies{
 }
 
 main .search-result .movie{
-  width: calc(100% / 4 - 4px);
+  width: calc(100% / 3 - 4px);
   padding-top: 150%;
   padding: 5px;
   margin: 2px;
@@ -115,7 +115,6 @@ main .search-result .card .no-poster{
   position: relative;
   background-color: #141414;
   transition: all 0.6s;
-
 }
 
 main .search-result .card .no-poster h4{
@@ -144,11 +143,17 @@ main .search-result .movie:hover .info{
 
 main .search-result .movie:hover .info span{
   font-size: 11px;
-
 }
 
+main .search-result .movie:hover .info .cast{
+  list-style: none;
+  font-size: 8px;
+}
+
+
+
 main .search-result .movie:hover .info .overview{
-  max-height: 150px;
+  max-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 11px;

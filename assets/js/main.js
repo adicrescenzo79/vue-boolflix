@@ -2,13 +2,13 @@ Vue.config.devtools = true;
 var app = new Vue({
   el: '#root',
   data: {
-    searchMovie: 'ciao',
+    searchMovie: 'mamma',
     movies: [],
     searchActive: false,
     uri: 'https://api.themoviedb.org/3',
     api_key: '07d44c193ccfbcc66cd9b564a4d50433',
     lang: 'it',
-
+    actors: [],
   },
 
   mounted() {
@@ -32,6 +32,31 @@ var app = new Vue({
   },
 
   methods: {
+    creditsMovie: function(id){
+      axios
+      .get(`${this.uri}/movie/${id}/credits?api_key=${this.api_key}`)
+      .then((response) => {
+        const result = response.data.cast;
+        console.log(response.data);
+        for (var i = 0; i < 5; i++) {
+          let name = result[i].name;
+          this.actors.push(name);
+        }
+      });
+
+    },
+    creditsTv: function(id){
+      axios
+      .get(`${this.uri}/tv/${id}/credits?api_key=${this.api_key}`)
+      .then((response) => {
+        const result = response.data.cast;
+        for (var i = 0; i < 5; i++) {
+          let name = result[i].name;
+          this.actors.push(name);
+        }
+      });
+
+    },
 
     search: function(){
       if (!this.searchActive) {
