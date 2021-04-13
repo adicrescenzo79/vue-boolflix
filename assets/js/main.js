@@ -4,26 +4,58 @@ var app = new Vue({
   data: {
     searchMovie: 'avengers',
     movies: [],
-    tvShows: [],
+    searchActive: false,
+    uri: 'https://api.themoviedb.org/3',
+    api_key: '07d44c193ccfbcc66cd9b564a4d50433',
+    lang: 'it',
+
   },
+
+  mounted() {
+    // DA TOGLIERE
+    let search = this.searchMovie;
+    this.searchMovie = '';
+    axios
+    .get(`${this.uri}/search/movie?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+    .then((response) => {
+      const result = response.data.results;
+      this.movies = [...this.movies, ...result]
+    });
+    axios
+    .get(`${this.uri}/search/tv?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+    .then((response) => {
+      const result = response.data.results;
+      this.movies = [...this.movies, ...result]
+
+    });
+    // DA TOGLIERE
+  },
+
   methods: {
+
     search: function(){
-      let search = this.searchMovie;
-      this.searchMovie = '';
-      axios
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it&query=${search}`)
-      .then((response) => {
-        const result = response.data.results;
-        this.movies = result;
-      });
-      axios
-      .get(`https://api.themoviedb.org/3/search/tv?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it&query=${search}`)
-      .then((response) => {
-        const result = response.data.results;
-        this.tvShows = result;
-
-      });
-
+      if (!this.searchActive) {
+        this.searchActive = !this.searchActive;
+        // PERCHE' NON FUNZIONA IL FOCUS?
+        this.$refs.searchInput.focus();
+      } else {
+        this.searchActive = !this.searchActive;
+        let search = this.searchMovie;
+        this.searchMovie = '';
+        this.movies = [];
+        axios
+        .get(`${this.uri}/search/movie?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+        .then((response) => {
+          const result = response.data.results;
+          this.movies = [...this.movies, ...result]
+        });
+        axios
+        .get(`${this.uri}/search/tv?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+        .then((response) => {
+          const result = response.data.results;
+          this.movies = [...this.movies, ...result]
+        });
+      }
     },
   }
 })

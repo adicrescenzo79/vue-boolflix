@@ -1,5 +1,7 @@
 body{
   font-family: 'Rajdhani', sans-serif;
+  background-color: #141414;
+  color: #fff;
 }
 
 /* DEBUG */
@@ -8,10 +10,49 @@ body{
 }
 
 /* HEADER */
-header{
-  padding: 20px 0;
-  text-align: center;
+header .container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+header .left{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: 0 10px;
+}
+
+header .left .logo{
+  width: 100px;
+}
+
+header .right{
+  margin: 0 10px;
+}
+
+header .right .search{
+  padding: 5px;
+}
+
+header .right .search input{
+  outline: none;
+  background-color: #141414;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  display: none;
+}
+
+header .right .search.active{
+  border: 1px solid #fff;
+}
+
+header .right .search.active input{
+  display: inline-block;
+}
+
 
 /* MAIN */
 main .search-result{
@@ -20,12 +61,16 @@ main .search-result{
 
 }
 
+main .search-result .container h1{
+  margin: 10px;
+}
+
 main .search-result .container .movies,
 main .search-result .container .tv-shows{
   display: flex;
   flex-wrap: wrap;
 
-  padding: 50px 0;
+  padding: 10px 0;
 }
 
 main .search-result .card{
@@ -42,13 +87,19 @@ main .search-result .card{
   text-align: center;
   height: 250px;
   position: relative;
+  background-position: center;
+  background-size: cover;
 }
 
 main .search-result .card .poster{
   height: 50%;
 }
 
-main .search-result .card .flag{
+main .search-result .card .info{
+  display: none;
+}
+
+main .search-result .card .info .flag{
   position: absolute;
   bottom: 0;
   right: 2px;
@@ -56,15 +107,16 @@ main .search-result .card .flag{
   border-radius: 50px;
 }
 
-main .search-result .card .star{
+main .search-result .card .info .star{
   display: flex;
 
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   margin: 2px;
 }
 
-main .search-result .card .star .full{
+main .search-result .card .info .star .full{
   color: #000;
 }

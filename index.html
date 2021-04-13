@@ -6,23 +6,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/css/12bool.css">
     <link rel="stylesheet" href="./assets/css/master.css">
-    <title></title>
+    <title>Boolflix</title>
   </head>
   <body class="">
     <div id="root">
 
       <header>
         <div class="container">
-          <!-- INPUT DI RICERCA -->
-          <input
-          @keyup.enter="search()"b
-          v-model="searchMovie"
-          placeholder="Cerca su questo sito"
-          type="text">
+          <div class="left">
+            <img src="https://1000marche.net/wp-content/uploads/2020/03/Netflix-logo.png" alt="" class="logo">
+            <span class="home">Home</span>
+            <span class="serie">Serie TV</span>
+            <span class="film">Film</span>
+          </div>
 
-          <button @click="search()" >VAI</button>
+
+          <div class="right">
+            <!-- INPUT DI RICERCA -->
+            <div :class="(searchActive) ? 'active' : ''" class="search">
+              <i @click="search()" class="fas fa-search"></i>
+              <input
+              ref="searchInput"
+              @keyup.enter="search()"
+              v-model="searchMovie"
+              placeholder="Cerca film e serie TV"
+              type="text">
+            </div>
+          </div>
         </div>
       </header>
 
@@ -31,40 +44,19 @@
         <div class="search-result">
 
           <div class="container">
-            <h1 v-if="movies.length">FILM</h1>
+            <h1 v-if="movies.length">FILM e SERIE TV</h1>
             <div class="movies">
-              <div v-for="(movie, i) in movies" class="card">
-                <img class="poster" :src=`https://image.tmdb.org/t/p/w185/${movie.poster_path}` alt="">
+              <div :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")` v-for="(movie, i) in movies" class="card animate__zoomIn">
+                <h1 v-if="movie.poster_path == null" >{{movie.title || movie.name}}</h1>
                 <div class="info">
-                  <h3 class="title">{{movie.title}}</h3>
-                  <span v-if="movie.title != movie.original_title" class="original">{{movie.original_title}}</span>
+                  <h4 class="title">{{movie.title || movie.name}}</h3>
+                  <span v-if="movie.title != movie.original_title" class="original">{{movie.original_title || movie.original_name}}</span>
                   <img class="flag" v-if="movie.original_language == 'en'" src="https://www.countryflags.io/us/shiny/64.png">
                   <img class="flag" v-else-if="movie.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/64.png">
                   <img class="flag" v-else :src=`https://www.countryflags.io/${movie.original_language}/shiny/64.png`>
                   <div class="star">
                     <i v-for="star in parseInt(movie.vote_average / 2)" class="full fas fa-star"></i>
                     <i v-for="star in (5 - parseInt(movie.vote_average / 2))" class="full far fa-star"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="container ">
-            <h1 v-if="tvShows.length">SERIE TV</h1>
-            <div class="tv-shows">
-              <div v-for="(tvShow, i) in tvShows" class="card">
-                <img class="poster" :src=`https://image.tmdb.org/t/p/w185/${tvShow.poster_path}` alt="">
-                <div class="info">
-                  <h3 class="title">{{tvShow.name}}</h3>
-                  <span v-if="tvShow.name != tvShow.original_name" class="original">{{tvShow.original_name}}</span>
-                  <img class="flag" v-if="tvShow.original_language == 'en'" src="https://www.countryflags.io/us/shiny/64.png">
-                  <img class="flag" v-else-if="tvShow.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/64.png">
-                  <img class="flag" v-else :src=`https://www.countryflags.io/${tvShow.original_language}/shiny/64.png`>
-                  <div class="star">
-                    <i v-for="star in parseInt(tvShow.vote_average / 2)" class="full fas fa-star"></i>
-                    <i v-for="star in (5 - parseInt(tvShow.vote_average / 2))" class="full far fa-star"></i>
                   </div>
                 </div>
               </div>
