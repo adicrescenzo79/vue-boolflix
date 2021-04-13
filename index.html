@@ -55,7 +55,7 @@
                 </div>
                 <div class="info">
                   <h3 class="title">{{movie.title || movie.name}}</h3>
-                  <span v-if="movie.title != movie.original_title || movie.name != movie.original_name" class="original">{{movie.original_title || movie.original_name}}</span>
+                  <span v-if="movie.title != movie.original_title || movie.name != movie.original_name" class="original">"{{movie.original_title || movie.original_name}}"</span>
                   <p class="overview">{{movie.overview}}</p>
                   <img class="flag" v-if="movie.original_language == 'en'" src="https://www.countryflags.io/us/shiny/64.png">
                   <img class="flag" v-else-if="movie.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/64.png">
