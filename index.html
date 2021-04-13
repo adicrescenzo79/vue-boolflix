@@ -44,19 +44,25 @@
         <div class="search-result">
 
           <div class="container">
-            <h1 v-if="movies.length">FILM e SERIE TV</h1>
+            <h1 v-if="movies.length">FILM e Serie TV trovati</h1>
             <div class="movies">
-              <div :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")` v-for="(movie, i) in movies" class="card animate__zoomIn">
-                <h1 v-if="movie.poster_path == null" >{{movie.title || movie.name}}</h1>
+              <div  v-for="(movie, i) in movies" class="movie">
+                <div class="card">
+                  <div class="poster" v-if="movie.poster_path != null" :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")`></div>
+                  <div class="no-poster" v-else >
+                    <h4>{{movie.title || movie.name}}</h4>
+                  </div>
+                </div>
                 <div class="info">
-                  <h4 class="title">{{movie.title || movie.name}}</h3>
-                  <span v-if="movie.title != movie.original_title" class="original">{{movie.original_title || movie.original_name}}</span>
+                  <h3 class="title">{{movie.title || movie.name}}</h3>
+                  <span v-if="movie.title != movie.original_title || movie.name != movie.original_name" class="original">{{movie.original_title || movie.original_name}}</span>
+                  <p class="overview">{{movie.overview}}</p>
                   <img class="flag" v-if="movie.original_language == 'en'" src="https://www.countryflags.io/us/shiny/64.png">
                   <img class="flag" v-else-if="movie.original_language == 'ja'" src="https://www.countryflags.io/jp/shiny/64.png">
                   <img class="flag" v-else :src=`https://www.countryflags.io/${movie.original_language}/shiny/64.png`>
                   <div class="star">
-                    <i v-for="star in parseInt(movie.vote_average / 2)" class="full fas fa-star"></i>
-                    <i v-for="star in (5 - parseInt(movie.vote_average / 2))" class="full far fa-star"></i>
+                    <i v-for="star in parseInt(movie.vote_average / 2)" class="fas fa-star"></i>
+                    <i v-for="star in (5 - parseInt(movie.vote_average / 2))" class="far fa-star"></i>
                   </div>
                 </div>
               </div>

@@ -2,7 +2,7 @@ Vue.config.devtools = true;
 var app = new Vue({
   el: '#root',
   data: {
-    searchMovie: 'avengers',
+    searchMovie: 'ciao',
     movies: [],
     searchActive: false,
     uri: 'https://api.themoviedb.org/3',
