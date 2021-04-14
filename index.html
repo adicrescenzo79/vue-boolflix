@@ -21,8 +21,12 @@
             <span class="home">Home</span>
             <span class="serie">Serie TV</span>
             <span class="film">Film</span>
+            <span
+            @click="selectionOpen = !selectionOpen"
+            class="generi">
+              Generi
+            </span>
           </div>
-
 
           <div class="right">
             <!-- INPUT DI RICERCA -->
@@ -39,17 +43,25 @@
         </div>
       </header>
 
+
       <main>
 
         <div class="search-result">
 
           <div class="container">
+            <nav v-if="selectionOpen">
+              <span class="all" @click="genreSelected = ''">Tutti</span>
+              <span
+              v-for="genre in movieGenres"
+              @click="genreSelected = genre.id">{{genre.name}}</span>
+            </nav>
             <h1 v-if="movies.length">FILM e Serie TV trovati</h1>
             <div class="movies">
               <div
               @mouseenter="(movie.title) ? credits('movie', movie.id) : credits('tv', movie.id)"
               @mouseleave="actors = []"
               v-for="(movie, i) in movies"
+              v-if="movie.genre_ids.includes(genreSelected) || genreSelected == ''"
               class="movie">
                 <div class="card">
                   <div class="poster" v-if="movie.poster_path != null" :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")`></div>

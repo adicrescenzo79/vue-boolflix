@@ -58,7 +58,25 @@ header .right .search.active input{
 main .search-result{
   height: calc(100vh - 61px);
   overflow-y: auto;
+}
 
+main .search-result .container nav{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+main .search-result .container nav span{
+  margin: 5px 15px;
+  width: calc(100% / 6 - 15px);
+  border: 1px solid #fff;
+  text-align: center;
+}
+
+main .search-result .container nav span.all{
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
 }
 
 main .search-result .container h1{
@@ -149,7 +167,6 @@ ul{
   list-style: none;
   font-size: 8px;
   border: 1px solid #fff;
-  
 }
 
 

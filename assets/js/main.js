@@ -2,7 +2,7 @@ Vue.config.devtools = true;
 var app = new Vue({
   el: '#root',
   data: {
-    searchMovie: 'mamma',
+    searchMovie: 'avengers',
     movies: [],
     searchActive: false,
     uri: 'https://api.themoviedb.org/3',
@@ -10,6 +10,8 @@ var app = new Vue({
     lang: 'it',
     actors: [],
     movieGenres: [],
+    genreSelected: '',
+    selectionOpen: false,
   },
 
   mounted() {
@@ -33,7 +35,13 @@ var app = new Vue({
     .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it`)
     .then((response) => {
       const result = response.data.genres;
+      for (var i = 0; i < result.length; i++) {
+        if (result[i].id == '10770') {
+          result[i].name = 'film-TV';
+        }
+      }
       this.movieGenres = result;
+
     });
 
 
