@@ -18,13 +18,12 @@
         <div class="container">
           <div class="left">
             <img src="https://1000marche.net/wp-content/uploads/2020/03/Netflix-logo.png" alt="" class="logo">
-            <span class="home">Home</span>
-            <span class="serie">Serie TV</span>
-            <span class="film">Film</span>
             <span
             @click="selectionOpen = !selectionOpen"
             class="generi">
               Generi
+              <i v-if="selectionOpen" class="fas fa-chevron-up"></i>
+              <i v-if="!selectionOpen" class="fas fa-chevron-down"></i>
             </span>
           </div>
 
@@ -50,12 +49,15 @@
 
           <div class="container">
             <nav v-if="selectionOpen">
-              <span class="all" @click="genreSelected = ''">Tutti</span>
+              <span :class="(genreSelected == '') ? 'active' : ''" class="all" @click="genreSelected = ''">Tutti</span>
               <span
+              :class="(genreSelected == genre.id) ? 'active' : ''"
               v-for="genre in movieGenres"
               @click="genreSelected = genre.id">{{genre.name}}</span>
             </nav>
+
             <h1 v-if="movies.length">FILM e Serie TV trovati</h1>
+
             <div class="movies">
               <div
               @mouseenter="(movie.title) ? credits('movie', movie.id) : credits('tv', movie.id)"
@@ -69,39 +71,56 @@
                     <h4>{{movie.title || movie.name}}</h4>
                   </div>
                 </div>
+
                 <div class="info">
-                  <h4 class="title">{{movie.title || movie.name}}</h4>
-                  <span
-                    v-if="movie.title != movie.original_title || movie.name != movie.original_name"
-                    class="original">"{{movie.original_title || movie.original_name}}"
-                  </span>
-                  <ul class="cast">
-                    <li v-for="actor in actors" class="actor">{{actor}}</li>
-                  </ul>
-                  <p class="overview">{{movie.overview}}</p>
-                  <ul class="genres">
-                    <li
+                  <div class="up">
+                    <div class="up-left">
+                      <div class="poster" v-if="movie.poster_path != null" :style=`background-image:url("https://image.tmdb.org/t/p/w185/${movie.poster_path}")`></div>
+                    </div>
+                    <div class="up-right">
+                      <h2 class="title">{{movie.title || movie.name}}</h2>
+                      <span
+                        v-if="movie.title != movie.original_title || movie.name != movie.original_name"
+                        class="original">"{{movie.original_title || movie.original_name}}"
+                      </span>
+                      <div class="specifiche">
+                        <p class="overview">{{movie.overview}}</p>
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="down">
+                    <img
+                    class="flag"
+                    v-if="movie.original_language == 'en'"
+                    src="https://www.countryflags.io/us/shiny/64.png">
+                    <img
+                    class="flag"
+                    v-else-if="movie.original_language == 'ja'"
+                    src="https://www.countryflags.io/jp/shiny/64.png">
+                    <img
+                    class="flag"
+                    v-else
+                    :src=`https://www.countryflags.io/${movie.original_language}/shiny/64.png`>
+
+                    <ul class="cast">
+                      <li v-for="actor in actors" class="actor">{{actor}}</li>
+                    </ul>
+                    <ul class="genres">
+                      <li
                       v-for="genreId in movie.genre_ids"
                       class="genre">{{genreName(genreId)}}
                     </li>
                   </ul>
-                  <img
-                  class="flag"
-                  v-if="movie.original_language == 'en'"
-                  src="https://www.countryflags.io/us/shiny/64.png">
-                  <img
-                  class="flag"
-                  v-else-if="movie.original_language == 'ja'"
-                  src="https://www.countryflags.io/jp/shiny/64.png">
-                  <img
-                  class="flag"
-                  v-else
-                  :src=`https://www.countryflags.io/${movie.original_language}/shiny/64.png`>
-                  <div class="star">
-                    <i v-for="star in parseInt(movie.vote_average / 2)" class="fas fa-star"></i>
-                    <i v-for="star in (5 - parseInt(movie.vote_average / 2))" class="far fa-star"></i>
+
+                    <div class="star">
+                      <i v-for="star in parseInt(movie.vote_average / 2)" class="fas fa-star"></i>
+                      <i v-for="star in (5 - parseInt(movie.vote_average / 2))" class="far fa-star"></i>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

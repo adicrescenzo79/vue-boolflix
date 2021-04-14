@@ -37,7 +37,7 @@ var app = new Vue({
       const result = response.data.genres;
       for (var i = 0; i < result.length; i++) {
         if (result[i].id == '10770') {
-          result[i].name = 'film-TV';
+          result[i].name = 'Film-TV';
         }
       }
       this.movieGenres = result;
