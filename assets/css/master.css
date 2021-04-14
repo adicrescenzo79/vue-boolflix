@@ -73,7 +73,7 @@ main .search-result .container .movies{
 }
 
 main .search-result .movie{
-  width: calc(100% / 3 - 4px);
+  width: calc(100% / 4 - 4px);
   padding-top: 150%;
   padding: 5px;
   margin: 2px;
@@ -145,9 +145,11 @@ main .search-result .movie:hover .info span{
   font-size: 11px;
 }
 
-main .search-result .movie:hover .info .cast{
+ul{
   list-style: none;
   font-size: 8px;
+  border: 1px solid #fff;
+  
 }
 
 
@@ -159,6 +161,8 @@ main .search-result .movie:hover .info .overview{
   font-size: 11px;
   padding: 5px;
 }
+
+
 
 main .search-result .movie .info .flag{
   position: absolute;

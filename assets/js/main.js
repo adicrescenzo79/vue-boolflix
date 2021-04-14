@@ -9,6 +9,7 @@ var app = new Vue({
     api_key: '07d44c193ccfbcc66cd9b564a4d50433',
     lang: 'it',
     actors: [],
+    movieGenres: [],
   },
 
   mounted() {
@@ -26,28 +27,29 @@ var app = new Vue({
     .then((response) => {
       const result = response.data.results;
       this.movies = [...this.movies, ...result]
-
     });
     // DA TOGLIERE
+    axios
+    .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it`)
+    .then((response) => {
+      const result = response.data.genres;
+      this.movieGenres = result;
+    });
+
+
   },
 
   methods: {
-    creditsMovie: function(id){
-      axios
-      .get(`${this.uri}/movie/${id}/credits?api_key=${this.api_key}`)
-      .then((response) => {
-        const result = response.data.cast;
-        console.log(response.data);
-        for (var i = 0; i < 5; i++) {
-          let name = result[i].name;
-          this.actors.push(name);
-        }
+    genreName: function(genre){
+      let result = this.movieGenres.find(genreObj => {
+        return genreObj.id == genre;
       });
-
+      return (result && result.name) ? result.name : '' ;
     },
-    creditsTv: function(id){
+
+    credits: function(type, id){
       axios
-      .get(`${this.uri}/tv/${id}/credits?api_key=${this.api_key}`)
+      .get(`${this.uri}/${type}/${id}/credits?api_key=${this.api_key}`)
       .then((response) => {
         const result = response.data.cast;
         for (var i = 0; i < 5; i++) {
