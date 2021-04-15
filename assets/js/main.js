@@ -15,21 +15,21 @@ var app = new Vue({
   },
 
   mounted() {
-    // DA TOGLIERE
-    let search = this.searchMovie;
-    this.searchMovie = '';
-    axios
-    .get(`${this.uri}/search/movie?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
-    .then((response) => {
-      const result = response.data.results;
-      this.movies = [...this.movies, ...result]
-    });
-    axios
-    .get(`${this.uri}/search/tv?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
-    .then((response) => {
-      const result = response.data.results;
-      this.movies = [...this.movies, ...result]
-    });
+    // // DA TOGLIERE
+    // let search = this.searchMovie;
+    // this.searchMovie = '';
+    // axios
+    // .get(`${this.uri}/search/movie?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+    // .then((response) => {
+    //   const result = response.data.results;
+    //   this.movies = [...this.movies, ...result]
+    // });
+    // axios
+    // .get(`${this.uri}/search/tv?api_key=${this.api_key}&language=${this.lang}&query=${search}`)
+    // .then((response) => {
+    //   const result = response.data.results;
+    //   this.movies = [...this.movies, ...result]
+    // });
     // DA TOGLIERE
     axios
     .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=07d44c193ccfbcc66cd9b564a4d50433&language=it`)
@@ -50,6 +50,7 @@ var app = new Vue({
   methods: {
     genreName: function(genre){
       let result = this.movieGenres.find(genreObj => {
+        console.log(genreObj);
         return genreObj.id == genre;
       });
       return (result && result.name) ? result.name : '' ;
